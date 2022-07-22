@@ -1,6 +1,21 @@
-.data_presenter {
+.presenter-top-container {
+    display: flex;
+    flex-direction: column;
     border: 1px solid black;
-    padding: 5px;
-    float: left;
-    width: 200px;
 }
+.presenter-container-header {
+    display: flex;
+    margin: 10px;
+}
+
+.presenter-container {
+    display: flex;
+}
+
+.presenter-wrapper {
+    display: flex;
+    border: 1px solid black;
+    margin: 10px;
+    padding: 5px;
+}
+

@@ -10,6 +10,7 @@ class DataProvider {
     constructor() {
         this.listeners = new Set();
         this.numberProperties = new NumberProperties();
+        this.callbackCount = 0;
     }
 
     registerListener(eventHandler) {
@@ -34,18 +35,26 @@ class DataProvider {
         return this.numberProperties.isEven;
     }
 
+    getProviderProperties() {
+        return {
+            numberOfListeners: this.listeners.size,
+            callbackCount: this.callbackCount
+        };
+    }
+
     async updateDataLoop() {
         let updateLoopNo = 0;
         while (true) {
+            while (this.listeners.size == 0) {
+                await new Promise(r => setTimeout(r, 500));
+            }
             updateLoopNo += 1;
             this.numberProperties.number = updateLoopNo;
             this.numberProperties.square = updateLoopNo * updateLoopNo;
             this.numberProperties.isEven = updateLoopNo % 2 === 0;
-            console.log("updates");
             await new Promise(r => setTimeout(r, 2000));
-            console.log(this.listeners);
             for (let callback of this.listeners) {
-                console.log(callback);
+                this.callbackCount += 1;
                 callback();
             }
         }

@@ -1,12 +1,10 @@
 import {useEffect, useState, useCallback, useReducer} from "react";
-
 import dataProvider from "./DataProvider";
 
-const DataPresenter = () => {
+function DataPresenter(props) {
     const [_, forceUpdate] = useReducer((x) => x + 1, 0);
 
     const handleDataProviderChange = function () {
-        console.log("handleDataProviderChange called");
         forceUpdate();
     };
 
@@ -20,10 +18,14 @@ const DataPresenter = () => {
     return (
         <div>
             <div className="data_presenter">
+                <h3>{props.name}</h3>
+                <button onClick={props.onRemove}>Remove this presenter</button>
                 <ul>
                     <li>number: {dataProvider.getCurrentNumber()}</li>
                     <li>square: {dataProvider.getNumberSquare()}</li>
                     <li>parity: {dataProvider.getIsEven() ? "even" : "odd"}</li>
+
+                    <div>{JSON.stringify(dataProvider.getProviderProperties(), null, '  ')}</div>
                 </ul>
             </div>
         </div>
