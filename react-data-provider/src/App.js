@@ -1,10 +1,11 @@
 import './App.css';
+import DataPresenter from "./DataPresenter";
 
 function App() {
 	
 	return (
 		<div className="App">
-		   App
+			<DataPresenter></DataPresenter>
 		</div>
 	);
 }
